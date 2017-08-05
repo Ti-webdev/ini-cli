@@ -1,15 +1,21 @@
 #!/usr/bin/env node
-var fs = require('fs');
-var ini = require('ini');
 
-var args = process.argv.slice(2);
-var file = args[0];
-var field = args[1];
+const fs = require('fs')
+const ini = require('ini')
 
+const [, , file, ...fields] = process.argv
 
 fs.readFile(file, 'utf-8', function gotFile(err, buffer) {
-  if (err) return console.log(err);
-  var data = ini.parse(buffer);
-  process.stdout.write(data[field]);
-});
-
+  if (err) {
+    console.log(err)
+    process.exit(-1)
+  }
+  let result = ini.parse(buffer)
+  while (fields.length) {
+    const field = fields.shift()
+    result = result[field]
+  }
+  if ('undefined' !== typeof result) {
+    process.stdout.write(result)
+  }
+})

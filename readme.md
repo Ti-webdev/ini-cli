@@ -5,13 +5,14 @@ Command line tool that prints a single value from an ini file.
 ## install
 
 Adds an `ini` command.
-    
+
     $ npm install -g ini-cli
 
 
 ## Use
 
     $ ini <file> <field>
+    $ ini <file> <section> <field>
 
 ## example
 
@@ -22,4 +23,3 @@ TEST=12345
 
     $ ini example.ini TEST
     12345
-
